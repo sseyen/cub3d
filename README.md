@@ -57,6 +57,9 @@ make
 ./[executable-name] example_argument
 ```
 
+### Textures
+The included textures (saved in /textures) are 1024x1024px
+
 
 ## Resources
 
@@ -64,6 +67,7 @@ make
 - [aaaa.sh | The DDA Algorythem, explained interactively](https://aaaa.sh/creatures/dda-algorithm-interactive/) - Very simple trigonometry algorythem explanation
 -  [YouTube | javidx9](https://www.youtube.com/watch?v=NbSee-XM7WA) - Super Fast Ray Casting in Tiled Worlds using DDA
 - [xxx]() - 
+- Textures were created in ChatGPT
 
 ### AI Usage
 - Debugging: ["understanding error messages"]
