@@ -58,7 +58,7 @@ make
 ```
 
 ### Textures
-The included textures (saved in /textures) are 1024x1024px
+The included textures (saved in /textures) are 64x64px
 
 
 ## Resources
