@@ -60,8 +60,10 @@ make
 
 ## Resources
 
-- [cub3d | 42 Docs](https://harm-smits.github.io/42docs/projects/cub3d) - Main source to understanding RayCasting
-- [Resource title](URL) - Brief description...
+- [Lode's Computer Graphics Tutorial | Raycasting](https://lodev.org/cgtutor/) - Main source to understanding RayCasting
+- [aaaa.sh | The DDA Algorythem, explained interactively](https://aaaa.sh/creatures/dda-algorithm-interactive/) - Very simple trigonometry algorythem explanation
+-  [YouTube | javidx9](https://www.youtube.com/watch?v=NbSee-XM7WA) - Super Fast Ray Casting in Tiled Worlds using DDA
+- [xxx]() - 
 
 ### AI Usage
 - Debugging: ["understanding error messages"]
