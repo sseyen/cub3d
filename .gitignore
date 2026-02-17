@@ -1,0 +1,9 @@
+.DS_Store
+.vscode
+*.o
+*.a
+minishell
+test
+readline.supp
+out
+minishell_tester/
