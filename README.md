@@ -2,12 +2,12 @@
 *This project has been created as part of the 42 curriculum by jlager and alisseye*
 
 
-## Discription
+## Description
 Brief overview of what this project does and its main goal.
 
-The project implements [main concept/functionality]. It focuses on [key learning objective like memory management, algorithms, system calls, etc.].
+The project implements [main concept/functionality] and focuses on [key learning objective such as memory management, algorithms, system calls, etc.].
 
-### Project structure - Connection Flow Diagram:
+### Project Structure - Connection Flow Diagram:
 
 ```
 [.cub File]
@@ -34,7 +34,7 @@ The project implements [main concept/functionality]. It focuses on [key learning
 
 ## Instructions
 
-### Instalation and Compilation
+### Installation and Compilation
 ```bash
 git clone [repository-url] [project-name]
 cd [project-name]
@@ -58,23 +58,23 @@ make
 ```
 
 ### Textures
-The included textures (saved in /textures) are 64x64px
+The included textures (saved in /textures) are 64x64px.
 
 
 ## Resources
 
-- [Lode's Computer Graphics Tutorial | Raycasting](https://lodev.org/cgtutor/) - Main source to understanding RayCasting
-- [aaaa.sh | The DDA Algorythem, explained interactively](https://aaaa.sh/creatures/dda-algorithm-interactive/) - Very simple trigonometry algorythem explanation
--  [YouTube | javidx9](https://www.youtube.com/watch?v=NbSee-XM7WA) - Super Fast Ray Casting in Tiled Worlds using DDA
-- [xxx]() - 
-- Textures were created in ChatGPT
+- [Lode's Computer Graphics Tutorial | Raycasting](https://lodev.org/cgtutor/) - Main source for understanding ray casting
+- [aaaa.sh | The DDA Algorithm, explained interactively](https://aaaa.sh/creatures/dda-algorithm-interactive/) - Very simple trigonometry algorithm explanation
+- [YouTube | javidx9](https://www.youtube.com/watch?v=NbSee-XM7WA) - Super Fast Ray Casting in Tiled Worlds using DDA
+- [xxx]() - Placeholder for additional references
+- Textures were created with AI
 
 ### AI Usage
 - Debugging: ["understanding error messages"]
-- Concept clarification: [Examples like "understanding pointers", "learning about file descriptors", "understanding project partners code"]
-- Testing: [Examples like "generating edge case tests"]
+- Concept clarification: [examples such as "understanding pointers", "learning about file descriptors", "understanding project partners' code"]
+- Testing: [examples such as "generating edge case tests"]
 
-**Note:** All code implementation and logic was written independently. AI was used as a learning and debugging assistant.
+**Note:** All code implementation and logic were written independently; AI was used as a learning and debugging assistant.
 
 # Additional sections may be required depending on the project 
 (e.g., usage examples, feature list, technical choices, etc.).
