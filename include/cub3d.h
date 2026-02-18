@@ -14,14 +14,26 @@ typedef struct s_map
 
 typedef struct s_player
 {
+	double pos_x;
+	double pos_y;
+	double dir_x; // direction vector
+	double dir_y;
+	double plane_x; // camera plane (perpendicular to dir)
+	double plane_y;
 } t_player;
 
 typedef struct s_textures
 {
+	char *north_path;
+	char *south_path;
+	char *east_path;
+	char *west_path;
 	void *north_wall;
 	void *south_wall;
 	void *east_wall;
 	void *west_wall;
+	int floor_color; // RGB int
+	int ceil_color;
 	int width;
 	int height;
 } t_textures;
