@@ -11,6 +11,8 @@
 #include "libft.h"
 #include "mlx.h"
 
+#include "input.h"
+
 typedef struct s_map
 {
 	char **grid;

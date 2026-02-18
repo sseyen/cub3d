@@ -1,4 +1,6 @@
 
+#include "cub3d.h"
+
 int	check_extension(char *path, char *ext, int ext_len)
 {
 	int	i;
