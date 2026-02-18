@@ -2,6 +2,15 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
+#include <fcntl.h>		// open, close, 
+#include <unistd.h>		// read, write,
+#include <stdio.h>		// printf, perror, strerror
+#include <stdlib.h>		// malloc, free, exit
+#include <sys/time.h>	// gettimeofday
+
+#include "libft.h"
+#include "mlx.h"
+
 typedef struct s_map
 {
 	char **grid;
