@@ -1,16 +1,29 @@
+
 #ifndef INPUT_H
 # define INPUT_H
 
-/* Event codes shared by MLX across platforms */
+// event codes shared by MLX across platforms
 # define EVENT_KEYDOWN 2
 # define EVENT_KEYUP 3
 # define EVENT_CLOSE 17
 
-/* Event masks for mlx_hook */
+// event masks for mlx_hook
 # define MASK_KEYDOWN (1L << 0)
 # define MASK_KEYUP (1L << 1)
 # define MASK_CLOSE 0L
 
+// map chars
+#define WALL '1'
+#define FLOOR '0'
+#define SPACE ' '
+#define PLAYER_NORTH 'N'
+#define PLAYER_SOUTH 'S'
+#define PLAYER_EAST 'E'
+#define PLAYER_WEST 'W'
+
+#define TILE_SIZE 64
+
+// action codes
 # ifdef CUB3D_LINUX
 #  define KEY_ESC 65307
 #  define KEY_W 119
@@ -35,4 +48,4 @@
 #  error "Define CUB3D_LINUX or CUB3D_MACOS to select keycodes"
 # endif
 
-#endif /* INPUT_H */
+#endif

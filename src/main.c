@@ -1,16 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/17 13:09:22 by alisseye          #+#    #+#             */
-/*   Updated: 2026/02/17 13:09:31 by alisseye         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-int	main(void)
+int	main(int argc, char **argv)
 {
+	t_game	game;
+
+	if (argc != 2)
+		return (error_msg("Usage: ./cub3D <map.cub>"));
+	
+	if (!parse_file(argv[1], &game)) // parsing + validation
+		return (error_exit("Invalid map file"));
+	
+	if (!init_game(&game))
+		return (error_exit("Game init failed"));
+	
+	mlx_hook(game.win, KeyPress, KeyPressMask, &key_press, &game); // keyboard hadling
+	mlx_hook(game.win, DestroyNotify, 0, &close_game, &game); // window closer
+	mlx_loop_hook(game.mlx, &game_loop, &game); // set function adress
+	mlx_loop(game.mlx); // run loop infinitely
+	
+	cleanup_game(&game);
 	return (0);
 }
