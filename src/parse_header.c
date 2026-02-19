@@ -1,12 +1,15 @@
 
 #include "cub3d.h"
 
-// just opening and closing fd to check if file exists
+// the while loop after len removes any trailing whitespace chars such as \n
+// at the end just opening and closing fd to check if file exists
 int	parse_texture(char *line, char **texture_path, int i)
 {
 	int	fd;
 	int	len;
 
+	if (*texture_path)
+		return (error_msg("Duplicate texture in map header"));
 	while (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
 		i++;
 	*texture_path = ft_strdup(line + i);
@@ -15,7 +18,7 @@ int	parse_texture(char *line, char **texture_path, int i)
 	len = ft_strlen(*texture_path) - 1;
 	while (len >= 0 && ((*texture_path)[len] == ' ' 
 	|| ((*texture_path)[len] >= '\t' && (*texture_path)[len] <= '\r')))
-		(*texture_path)[len--] = '\0'; // removing any trailing whitespace chars such as \n
+		(*texture_path)[len--] = '\0';
 	if (!correct_extension(*texture_path, ".xpm", 4))
 		return (free(*texture_path), error_msg("Texture must be a .xpm file"));
 	fd = open(*texture_path, O_RDONLY);
@@ -25,32 +28,54 @@ int	parse_texture(char *line, char **texture_path, int i)
 	return (1);
 }
 
-int	parse_color(char *line, int **color, int i, int j)
+// looks complicated, but its cuz of the spaces and comas
+int	valid_color_input(char *line, int **color, int i, int j)
 {
-	while (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
-		i++;
-	*color = (int *)malloc(3 * sizeof(int));
-	if (!*color)
-		return (error_msg("malloc failed for color codes"));
-	while (line[i] && j <= 2 && (ft_isdigit(line[i]) || line[i] == ','))
+	while (line[i] && j < 3
+		&& ((line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
+		|| ft_isdigit(line[i]) || line[i] == ','))
 	{
 		if (line[i] == ',')
-			return(free(*color), error_msg("Invalid color format"));
+			return (free(*color), *color = NULL,
+				error_msg("Invalid color format"));
+		while (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
+			i++;
 		(*color)[j] = ft_atoi(&line[i]);
 		while (ft_isdigit(line[i]))
+			i++;
+		while (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
 			i++;
 		if (line[i] == ',')
 		{
 			i++;
 			j++;
 		}
+		while (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
+			i++;
 	}
-	if (j != 2 || (line[i] != '\0' && line[i] != '\n'))
-		return (free(*color), error_msg("Invalid color format"));
-	if ((*color)[0] < 0 || (*color)[0] > 255 
+	if (j != 3 || (line[i] != '\0' && line[i] != '\n'))
+		return (free(*color), *color = NULL, error_msg("Invalid color format"));
+	return (1);
+}
+
+int	parse_color(char *line, int **color, int i)
+{
+	int j;
+
+	j = 0;
+	if (*color)
+		return (error_msg("Duplicate color in map header"));
+	while (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
+		i++;
+	*color = (int *)malloc(3 * sizeof(int));
+	if (!*color)
+		return (error_msg("malloc failed for color codes"));
+	if (!valid_color_input(line, color, i, j))
+		return (0);
+	if ((*color)[0] < 0 || (*color)[0] > 255
 		|| (*color)[1] < 0 || (*color)[1] > 255
 		|| (*color)[2] < 0 || (*color)[2] > 255)
-		return (free(*color), error_msg("Invalid color format"));
+		return (free(*color), *color = NULL, error_msg("Invalid color format"));
 	return (1);
 }
 
@@ -106,8 +131,8 @@ int	parse_header_line(char *line, t_game *game)
 	if (!ft_strncmp(line, "EA ", 3))
 		return (parse_texture(line, &game->textures->east_path, 3));
 	if (!ft_strncmp(line, "F ", 2))
-		return (parse_color(line, &game->textures->floor_color, 2, 0));
+		return (parse_color(line, &game->textures->floor_color, 2));
 	if (!ft_strncmp(line, "C ", 2))
-		return (parse_color(line, &game->textures->ceil_color, 2, 0));
+		return (parse_color(line, &game->textures->ceil_color, 2));
 	return (error_msg("Unknown identifier in map header"));
 }

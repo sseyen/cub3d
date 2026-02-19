@@ -11,6 +11,8 @@ int	correct_extension(char *path, char *ext, int ext_len)
 		i++;
 	if (i <= ext_len)
 		return (0);
+	i--;
+	ext_len--;
 	while (ext_len >= 0)
 	{
 		if (path[i] != ext[ext_len])
@@ -34,7 +36,7 @@ int	parse_header(int fd, t_game *game)
 			line = get_next_line(fd);
 			continue ; // for the het_nex_line not to skip to the end
 		}
-		if (only_map_chars(line)) // starts with '1', '0', ' ', or player char
+		if (only_map_chars(line))
 		{
 			game->map->pending_line = line; // save for parse_map
 			if (!validate_header(game))
@@ -72,9 +74,9 @@ int	parse_file(char *path, t_game *game)
 	if (fd < 0)
 		return (error_msg("Could not open map file"));
 	if (!parse_header(fd, game))
-		return (close(fd), 0);
+		return (close(fd), cleanup_game(game), 0);
 	if (!parse_map(fd, game))
-		return (close(fd), 0);
+		return (close(fd), cleanup_game(game), 0);
 	close(fd);
 	return (1);
 }
