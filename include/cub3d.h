@@ -44,8 +44,8 @@ typedef struct s_textures
 	void *south_wall;
 	void *east_wall;
 	void *west_wall;
-	int floor_color; // RGB int
-	int ceil_color;
+	int *floor_color; // RGB array, one int for each color
+	int *ceil_color;
 	int width;
 	int height;
 } t_textures;

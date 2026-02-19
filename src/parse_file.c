@@ -2,7 +2,7 @@
 #include "cub3d.h"
 
 // basically ft_strncmp but from the back
-int	check_extension(char *path, char *ext, int ext_len)
+int	correct_extension(char *path, char *ext, int ext_len)
 {
 	int	i;
 
@@ -10,15 +10,15 @@ int	check_extension(char *path, char *ext, int ext_len)
 	while (path[i])
 		i++;
 	if (i <= ext_len)
-		return (1);
+		return (0);
 	while (ext_len >= 0)
 	{
 		if (path[i] != ext[ext_len])
-			return (1);
+			return (0);
 		i--;
 		ext_len--;
 	}
-	return (0);
+	return (1);
 }
 
 int	parse_header(int fd, t_game *game)
@@ -37,9 +37,11 @@ int	parse_header(int fd, t_game *game)
 		if (is_map_line(line)) // starts with '1', '0', ' ', or player char
 		{
 			game->map->pending_line = line; // save for parse_map
-			return (validate_header(game));
+			if (!validate_header(game))
+				return (free(game->map->pending_line), 0);
+			return (1);
 		}
-		if (!parse_header_line(line, game))
+		if (!parse_header_line(line, game)) // save current data and move to next
 			return (free(line), 0);
 		free(line);
 		line = get_next_line(fd);
@@ -64,7 +66,7 @@ int	parse_file(char *path, t_game *game)
 {
 	int		fd;
 
-	if (!check_extension(path, ".cub", 4)) // .cub is always 4 chars
+	if (!correct_extension(path, ".cub", 4)) // .cub is always 4 chars
 		return (error_msg("Invalid map file type"));
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
