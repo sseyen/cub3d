@@ -57,8 +57,10 @@ int	parse_color(char *line, int **color, int i, int j)
 int	is_map_line(char *line)
 {
 	int	i;
+	int	has_content;
 
 	i = 0;
+	has_content = 0;
 	if (*line == '\n' || *line == '\0')
 		return (0);
 	while (line[i] && line[i] != '\n')
@@ -67,9 +69,11 @@ int	is_map_line(char *line)
 			&& line[i] != 'N' && line[i] != 'S'
 			&& line[i] != 'E' && line[i] != 'W')
 			return (0);
+		if (line[i] != ' ')
+			has_content = 1;
 		i++;
 	}
-	return (1);
+	return (has_content);
 }
 
 int	validate_header(t_game *game)

@@ -34,7 +34,7 @@ int	parse_header(int fd, t_game *game)
 			line = get_next_line(fd);
 			continue ; // for the het_nex_line not to skip to the end
 		}
-		if (is_map_line(line)) // starts with '1', '0', ' ', or player char
+		if (only_map_chars(line)) // starts with '1', '0', ' ', or player char
 		{
 			game->map->pending_line = line; // save for parse_map
 			if (!validate_header(game))
@@ -72,15 +72,9 @@ int	parse_file(char *path, t_game *game)
 	if (fd < 0)
 		return (error_msg("Could not open map file"));
 	if (!parse_header(fd, game))
-	{
-		close(fd);
-		return (error_msg("Invalid map header"));
-	}
+		return (close(fd), 0);
 	if (!parse_map(fd, game))
-	{
-		close(fd);
-		return (error_msg("Invalid map"));
-	}
+		return (close(fd), 0);
 	close(fd);
 	return (1);
 }
