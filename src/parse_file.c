@@ -1,6 +1,7 @@
 
 #include "cub3d.h"
 
+// basically ft_strncmp but from the back
 int	check_extension(char *path, char *ext, int ext_len)
 {
 	int	i;
@@ -24,20 +25,26 @@ int	parse_header(int fd, t_game *game)
 {
 	char	*line;
 
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		if (*line == '\n' || *line == '\0') // skip empty lines
-		{ 
-			free(line); 
-			continue ; 
+		if (*line == '\n' || *line == '\0')
+		{
+			free(line);
+			line = get_next_line(fd);
+			continue ; // for the het_nex_line not to skip to the end
 		}
-		if (is_map_line(line)) // hit the map, stop
-			return (free(line), 1);
-		if (!parse_header_line(line, game)) // NO/SO/WE/EA/F/C
+		if (is_map_line(line)) // starts with '1', '0', ' ', or player char
+		{
+			game->map->pending_line = line; // save for parse_map
+			return (validate_header(game));
+		}
+		if (!parse_header_line(line, game))
 			return (free(line), 0);
 		free(line);
+		line = get_next_line(fd);
 	}
-	return (validate_header(game)); // all 6 required info present?
+	return (error_msg("Map section not found"));
 }
 
 int	parse_map(int fd, t_game *game)
@@ -63,9 +70,15 @@ int	parse_file(char *path, t_game *game)
 	if (fd < 0)
 		return (error_msg("Could not open map file"));
 	if (!parse_header(fd, game))
-		return (close(fd), 0);
+	{
+		close(fd);
+		return (error_msg("Invalid map header"));
+	}
 	if (!parse_map(fd, game))
-		return (close(fd), 0);
+	{
+		close(fd);
+		return (error_msg("Invalid map"));
+	}
 	close(fd);
 	return (1);
 }

@@ -21,6 +21,7 @@ typedef struct s_map
 	int player_x;
 	int player_y;
 	int player_count;
+	char *pending_line;
 } t_map;
 
 typedef struct s_player
