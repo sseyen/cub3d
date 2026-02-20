@@ -1,7 +1,7 @@
 
 #include "cub3d.h"
 
-static void	cleanup_textures(t_textures *textures)
+void	cleanup_textures(t_textures *textures)
 {
 	if (!textures)
 		return ;
@@ -19,7 +19,7 @@ static void	cleanup_textures(t_textures *textures)
 		free(textures->ceil_color);
 }
 
-static void	cleanup_map(t_map *map)
+void	cleanup_map(t_map *map)
 {
 	int	i;
 
