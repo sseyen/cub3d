@@ -66,7 +66,7 @@ int	parse_header(int fd, t_game *game)
 		if (!parse_header_line(line, game)) // save current data and move to next
 		{
 			game->map->pending_line = line; // hand off to cleanup_game
-			return (free(line), 0);
+			return (0);
 		}
 		free(line);
 		line = get_next_line(fd);
