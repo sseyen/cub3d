@@ -22,7 +22,15 @@ endif
 INCLUDES  = -I $(INC_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
 CFLAGS    = -Wall -Wextra -Werror -g $(INCLUDES) $(OS_DEF)
 
-SRCS      = main.c
+SRCS      =	main.c \
+			cleanup_game.c \
+			errors.c \
+			init_.c \
+			parse_file.c \
+			parse_header.c \
+			parse_map.c \
+			utils.c \
+
 OBJS      = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 LIBFT     = $(LIBFT_DIR)/libft.a
