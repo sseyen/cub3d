@@ -1,6 +1,28 @@
 
 #include "cub3d.h"
 
+int	only_map_chars(char *line)
+{
+	int	i;
+	int	has_content;
+
+	i = 0;
+	has_content = 0;
+	if (*line == '\n' || *line == '\0')
+		return (0);
+	while (line[i] && line[i] != '\n')
+	{
+		if (line[i] != '1' && line[i] != '0' && line[i] != ' '
+			&& line[i] != 'N' && line[i] != 'S'
+			&& line[i] != 'E' && line[i] != 'W')
+			return (0);
+		if (line[i] != ' ')
+			has_content = 1;
+		i++;
+	}
+	return (has_content);
+}
+
 // basically ft_strncmp but from the back
 int	correct_extension(char *path, char *ext, int ext_len)
 {
@@ -39,12 +61,13 @@ int	parse_header(int fd, t_game *game)
 		if (only_map_chars(line))
 		{
 			game->map->pending_line = line; // save for parse_map
-			if (!validate_header(game))
-				return (free(game->map->pending_line), 0);
-			return (1);
+			return (validate_header(game));
 		}
 		if (!parse_header_line(line, game)) // save current data and move to next
+		{
+			game->map->pending_line = line; // hand off to cleanup_game
 			return (free(line), 0);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}

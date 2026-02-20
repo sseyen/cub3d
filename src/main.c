@@ -8,6 +8,9 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (error_msg("Usage: ./cub3D <map.cub>"));
 	
+	if (!init_structs(&game)) // allocate/zero map and textures
+		return (error_msg("Init failed"));
+
 	if (!parse_file(argv[1], &game)) // parsing + validation
 		return (error_exit("Invalid map file"));
 	

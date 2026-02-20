@@ -3,6 +3,7 @@
 
 // the while loop after len removes any trailing whitespace chars such as \n
 // at the end just opening and closing fd to check if file exists
+// and yes, I am using fd as a flag, I dont want a helper fucntion
 int	parse_texture(char *line, char **texture_path, int i)
 {
 	int	fd;
@@ -17,29 +18,34 @@ int	parse_texture(char *line, char **texture_path, int i)
 		return (error_msg("ft_strdup failed for texture path"));
 	len = ft_strlen(*texture_path) - 1;
 	while (len >= 0 && ((*texture_path)[len] == ' ' 
-	|| ((*texture_path)[len] >= '\t' && (*texture_path)[len] <= '\r')))
+		|| ((*texture_path)[len] >= '\t' && (*texture_path)[len] <= '\r')))
 		(*texture_path)[len--] = '\0';
 	if (!correct_extension(*texture_path, ".xpm", 4))
-		return (free(*texture_path), error_msg("Texture must be a .xpm file"));
-	fd = open(*texture_path, O_RDONLY);
+		fd = -1;
+	else
+		fd = open(*texture_path, O_RDONLY);
 	if (fd < 0)
-		return (free(*texture_path), error_msg("Texture file not found"));
-	close(fd);
-	return (1);
+	{
+		free(*texture_path);
+		*texture_path = NULL;
+		return (error_msg("Invalid texture input"));
+	}
+	return (close(fd), 1);
 }
 
-// looks complicated, but its cuz of the spaces and comas
+// initial/dup ',' > space > number > space > comma
 int	valid_color_input(char *line, int **color, int i, int j)
 {
-	while (line[i] && j < 3
+	while (line[i] && j <= 2
 		&& ((line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
 		|| ft_isdigit(line[i]) || line[i] == ','))
 	{
 		if (line[i] == ',')
-			return (free(*color), *color = NULL,
-				error_msg("Invalid color format"));
+			return (0);
 		while (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
 			i++;
+		if (!ft_isdigit(line[i]))
+			return (0);
 		(*color)[j] = ft_atoi(&line[i]);
 		while (ft_isdigit(line[i]))
 			i++;
@@ -50,11 +56,9 @@ int	valid_color_input(char *line, int **color, int i, int j)
 			i++;
 			j++;
 		}
-		while (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
-			i++;
 	}
-	if (j != 3 || (line[i] != '\0' && line[i] != '\n'))
-		return (free(*color), *color = NULL, error_msg("Invalid color format"));
+	if (j != 2 || (line[i] != '\0' && line[i] != '\n'))
+		return (0);
 	return (1);
 }
 
@@ -70,35 +74,15 @@ int	parse_color(char *line, int **color, int i)
 	*color = (int *)malloc(3 * sizeof(int));
 	if (!*color)
 		return (error_msg("malloc failed for color codes"));
-	if (!valid_color_input(line, color, i, j))
-		return (0);
-	if ((*color)[0] < 0 || (*color)[0] > 255
-		|| (*color)[1] < 0 || (*color)[1] > 255
-		|| (*color)[2] < 0 || (*color)[2] > 255)
-		return (free(*color), *color = NULL, error_msg("Invalid color format"));
-	return (1);
-}
-
-int	is_map_line(char *line)
-{
-	int	i;
-	int	has_content;
-
-	i = 0;
-	has_content = 0;
-	if (*line == '\n' || *line == '\0')
-		return (0);
-	while (line[i] && line[i] != '\n')
+	if (!valid_color_input(line, color, i, j) 
+		|| ((*color)[0] < 0 || (*color)[0] > 255 || (*color)[1] < 0 
+		|| (*color)[1] > 255 || (*color)[2] < 0 || (*color)[2] > 255))
 	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != ' '
-			&& line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'E' && line[i] != 'W')
-			return (0);
-		if (line[i] != ' ')
-			has_content = 1;
-		i++;
+		free(*color);
+		*color = NULL;
+		return(error_msg("Invalid color format"));
 	}
-	return (has_content);
+	return (1);
 }
 
 int	validate_header(t_game *game)

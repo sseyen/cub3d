@@ -1,4 +1,6 @@
 
+#include "cub3d.h"
+
 int	game_loop(t_game *game)
 {
 	// This runs every frame automatically via mlx_loop_hook

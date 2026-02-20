@@ -1,4 +1,6 @@
 
+#include "cub3d.h"
+
 int	error_msg(char *str)
 {
 	write(2, "Error: ", 7);

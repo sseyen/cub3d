@@ -32,6 +32,17 @@ The project implements [main concept/functionality] and focuses on [key learning
 └──────────────────────────────────────────┘
 ```
 
+```
+Parsing          ████████████████████ 20%
+Raycasting       ███████████████████████████████████ 35%
+Rendering        ███████████████ 15%
+Game Loop/Polish ██████████ 10%
+Init             █████ 5%
+Player/Camera    █████ 5%
+Input            █████ 5%
+Collision        █████ 5%
+```
+
 ## Instructions
 
 ### Installation and Compilation
