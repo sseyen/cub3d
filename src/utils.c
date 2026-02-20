@@ -1,7 +1,7 @@
 
 #include "cub3d.h"
 
-char	*get_next_line(int fd)
+char	*mini_gnl(int fd)
 {
 	static char	buffer[BUFFER_SIZE];
 	static int buffer_pos;

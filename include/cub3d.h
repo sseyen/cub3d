@@ -2,6 +2,10 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
 #include <fcntl.h>		// open, close, 
 #include <unistd.h>		// read, write,
 #include <stdio.h>		// printf, perror, strerror

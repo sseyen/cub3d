@@ -41,7 +41,7 @@ int	collect_map_lines(int fd, t_game *game)
 			return (0);
 		}		
 		free(game->map->pending_line);
-		game->map->pending_line = get_next_line(fd);
+		game->map->pending_line = mini_gnl(fd);
 	}
 	return (1);
 }

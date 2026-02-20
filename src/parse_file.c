@@ -49,13 +49,13 @@ int	parse_header(int fd, t_game *game)
 {
 	char	*line;
 
-	line = get_next_line(fd);
+	line = mini_gnl(fd);
 	while (line != NULL)
 	{
 		if (*line == '\n' || *line == '\0')
 		{
 			free(line);
-			line = get_next_line(fd);
+			line = mini_gnl(fd);
 			continue ; // for the het_nex_line not to skip to the end
 		}
 		if (only_map_chars(line))
@@ -69,7 +69,7 @@ int	parse_header(int fd, t_game *game)
 			return (0);
 		}
 		free(line);
-		line = get_next_line(fd);
+		line = mini_gnl(fd);
 	}
 	return (error_msg("Map section not found"));
 }
