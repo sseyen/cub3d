@@ -1,6 +1,5 @@
 NAME       = cub3D
 OS        ?= $(shell uname -s)
-ARCH      ?= $(shell uname -m)
 CC         = cc
 
 SRC_DIR    = src
