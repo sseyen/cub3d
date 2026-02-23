@@ -1,5 +1,6 @@
 NAME       = cub3D
 OS        ?= $(shell uname -s)
+ARCH      ?= $(shell uname -m)
 CC         = cc
 
 SRC_DIR    = src
@@ -11,15 +12,10 @@ MLX42_BUILD= $(MLX42_DIR)/build
 MLX42_LIB  = $(MLX42_BUILD)/libmlx42.a
 
 ifeq ($(OS),Linux)
-	OS_DEF     = -D CUB3D_LINUX
 	GLFW_LINK ?= -ldl -lglfw -pthread -lm
 else
-	OS_DEF     = -D CUB3D_MACOS
-	GLFW_PREFIX?= $(shell brew --prefix glfw 2>/dev/null)
-	GLFW_LINK ?= -lglfw -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
-	ifneq ($(GLFW_PREFIX),)
-		GLFW_LINK += -L$(GLFW_PREFIX)/lib
-	endif
+	GLFW_PREFIX ?= /opt/homebrew
+	GLFW_LINK ?= -lglfw -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo -L$(GLFW_PREFIX)/lib
 endif
 
 INCLUDES   = -I $(INC_DIR) -I $(LIBFT_DIR) -I $(MLX42_DIR)/include
