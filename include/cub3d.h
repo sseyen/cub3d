@@ -6,14 +6,15 @@
 #  define BUFFER_SIZE 10
 # endif
 
-#include <fcntl.h>		// open, close, 
-#include <unistd.h>		// read, write,
+#include <fcntl.h>		// open, close
+#include <unistd.h>		// read, write
 #include <stdio.h>		// printf, perror, strerror
 #include <stdlib.h>		// malloc, free, exit
 #include <sys/time.h>	// gettimeofday
+#include <stdbool.h>
 
 #include "libft.h"
-#include "mlx.h"
+#include <MLX42/MLX42.h>
 
 #include "input.h"
 

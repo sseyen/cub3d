@@ -1,28 +1,31 @@
-NAME      = cub3D
-OS       ?= $(shell uname -s)
-CC        = cc
+NAME       = cub3D
+OS        ?= $(shell uname -s)
+CC         = cc
 
-SRC_DIR   = src
-OBJ_DIR   = obj
-INC_DIR   = include
-LIBFT_DIR = libft
+SRC_DIR    = src
+OBJ_DIR    = obj
+INC_DIR    = include
+LIBFT_DIR  = libft
+MLX42_DIR  = MLX42
+MLX42_BUILD= $(MLX42_DIR)/build
+MLX42_LIB  = $(MLX42_BUILD)/libmlx42.a
 
 ifeq ($(OS),Linux)
-	MLX_DIR   = minilibx_linux
-	MLX_LIB   = $(MLX_DIR)/libmlx.a
-	MLX_FLAGS = -L $(MLX_DIR) -lmlx -lXext -lX11 -lm
-	OS_DEF    = -D CUB3D_LINUX
+	OS_DEF     = -D CUB3D_LINUX
+	GLFW_LINK ?= -ldl -lglfw -pthread -lm
 else
-	MLX_DIR   = minilibx_macos
-	MLX_LIB   = $(MLX_DIR)/libmlx.a
-	MLX_FLAGS = -L $(MLX_DIR) -lmlx -framework Metal -framework MetalKit -framework AppKit
-	OS_DEF    = -D CUB3D_MACOS
+	OS_DEF     = -D CUB3D_MACOS
+	GLFW_PREFIX?= $(shell brew --prefix glfw 2>/dev/null)
+	GLFW_LINK ?= -lglfw -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
+	ifneq ($(GLFW_PREFIX),)
+		GLFW_LINK += -L$(GLFW_PREFIX)/lib
+	endif
 endif
 
-INCLUDES  = -I $(INC_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
-CFLAGS    = -Wall -Wextra -Werror -g $(INCLUDES) $(OS_DEF)
+INCLUDES   = -I $(INC_DIR) -I $(LIBFT_DIR) -I $(MLX42_DIR)/include
+CFLAGS     = -Wall -Wextra -Werror -g $(INCLUDES) $(OS_DEF)
 
-SRCS      =	main.c \
+SRCS       = main.c \
 			cleanup_game.c \
 			errors.c \
 			init_.c \
@@ -30,15 +33,18 @@ SRCS      =	main.c \
 			parse_header.c \
 			parse_map.c \
 			utils.c \
+# 			game_loop.c \
+			key_press.c \
 
-OBJS      = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+OBJS       = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-LIBFT     = $(LIBFT_DIR)/libft.a
-LDLIBS    = -L $(LIBFT_DIR) -lft $(MLX_FLAGS)
+LIBFT      = $(LIBFT_DIR)/libft.a
+LDLIBS     = -L $(LIBFT_DIR) -lft -L $(MLX42_BUILD) -lmlx42 $(GLFW_LINK)
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX_LIB) $(OBJS)
+
+$(NAME): $(LIBFT) $(MLX42_LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LDLIBS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -48,17 +54,19 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 $(LIBFT):
 	@make -s -C $(LIBFT_DIR)
 
-$(MLX_LIB):
-	$(MAKE) -C $(MLX_DIR)
+$(MLX42_LIB):
+	cmake -S $(MLX42_DIR) -B $(MLX42_BUILD) -DGLFW_FETCH=ON
+	cmake --build $(MLX42_BUILD) --parallel
 
 clean:
 	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(MLX_DIR) clean
+	@if [ -d $(MLX42_BUILD) ]; then cmake --build $(MLX42_BUILD) --target clean; fi
 
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
+	rm -rf $(MLX42_BUILD)
 
 re: fclean all
 
