@@ -10,7 +10,7 @@ int	main(int argc, char **argv)
 	if (!init_structs(&game)) // allocate/zero map and textures
 		return (error_msg("Init failed"));
 	if (!parse_file(argv[1], &game)) // parsing + validation
-		return (error_exit("Invalid map file"));
+		return (error_msg("Invalid map file"));
 	if (!init_game(&game))
 		return (error_exit("Game init failed"));
 	mlx_hook(game.win, KeyPress, KeyPressMask, &key_press, &game); // keyboard hadling

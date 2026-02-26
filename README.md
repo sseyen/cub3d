@@ -33,30 +33,47 @@ The project implements [main concept/functionality] and focuses on [key learning
 ```
 
 ```
+Init             █████ 5%
 Parsing          ████████████████████ 20%
+Input            █████ 5%
 Raycasting       ███████████████████████████████████ 35%
 Rendering        ███████████████ 15%
 Game Loop/Polish ██████████ 10%
-Init             █████ 5%
 Player/Camera    █████ 5%
-Input            █████ 5%
 Collision        █████ 5%
 ```
 
 ## Instructions
 
 ### Installation and Compilation
+This project is using the [MLX42](https://github.com/codam-coding-college/MLX42?tab=readme-ov-file#for-macos) library. To compile, make sure you have `cmake` installed or install it:
+
+**on Linux (Ubuntu/Debian):**
 ```bash
-git clone [repository-url] [project-name]
-cd [project-name]
+sudo apt-get install cmake
+```
+
+**on macOS:**
+```bash
+bashbrew install cmake
+```
+
+**... than you can simply clone and make this proyect:**
+```bash
+git clone git@github.com:sseyen/cub3d.git cub3D
+cd cub3D
 make
 ```
 
 **Available commands:**
-- `make` - Compile the project
-- `make clean` - Remove object files
-- `make fclean` - Remove objects and executable
-- `make re` - Recompile everything if there were any changes to the code (especially header file *.h)
+
+`make` - Compile the project
+
+`make clean` - Remove object files
+
+`make fclean` - Remove objects and executable
+
+`make re` - Recompile everything if there were any changes to the code (especially header file *.h or Makefile)
 
 ### Execution
 ```bash
