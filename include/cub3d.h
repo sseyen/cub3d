@@ -71,7 +71,13 @@ void	cleanup_game(t_game *game);
 // errors.c
 int	error_msg(char *str);
 
-// init_.c
+// init_game.c
+int	init_game(t_game *game);
+int	set_direction(t_player *player, char spawn);
+int	init_textures(t_game *game);
+int	init_player(t_game *game);
+
+// init_structs.c
 int	init_structs(t_game *game);
 
 // parse_file.c
