@@ -3,8 +3,9 @@
 
 int	init_structs(t_game *game)
 {
-	game->mlx = NULL;
-	game->win = NULL;
+	game->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3D", true);
+	game->img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
+	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	game->player = NULL;
 	game->buffer = NULL;
 	game->map = malloc(sizeof(t_map));

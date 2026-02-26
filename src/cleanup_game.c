@@ -45,13 +45,6 @@ void	cleanup_game(t_game *game)
 		return ;
 	cleanup_textures(game->textures);
 	cleanup_map(game->map);
-	if (game->img && game->mlx)
-		mlx_destroy_image(game->mlx, game->img);
-	if (game->win && game->mlx)
-		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-	}
+		mlx_terminate(game->mlx);
 }

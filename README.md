@@ -46,16 +46,20 @@ Collision        █████ 5%
 ## Instructions
 
 ### Installation and Compilation
-This project is using the [MLX42](https://github.com/codam-coding-college/MLX42?tab=readme-ov-file#for-macos) library. To compile, make sure you have `cmake` installed or install it:
+This project is using the [MLX42](https://github.com/codam-coding-college/MLX42?tab=readme-ov-file#for-macos) library. To compile, make sure you have `cmake` and `glfw` installed or install it:
 
 **on Linux (Ubuntu/Debian):**
 ```bash
 sudo apt-get install cmake
+
+sudo apt-get install libglfw3-dev
 ```
 
 **on macOS:**
 ```bash
-bashbrew install cmake
+brew install cmake
+
+brew install glfw
 ```
 
 **... than you can simply clone and make this proyect:**

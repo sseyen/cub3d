@@ -2,9 +2,9 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
+# define BUFFER_SIZE 10
+#define WIN_HEIGHT 720 // "random numbers", but dont want it to be too big
+#define WIN_WIDTH 1280 // 1280 * 720 * 4 bytes = ~3.5 MB of RAM, good CPU
 
 #include <fcntl.h>		// open, close
 #include <unistd.h>		// read, write
@@ -57,12 +57,12 @@ typedef struct s_textures
 
 typedef struct s_game
 {
-	void *mlx;			  // miniLibX pointer
-	void *win;			  // window pointer
-	t_map *map;			  // parsed map data
-	t_player *player;	  // player position/direction
-	t_textures *textures; // loaded texture data
-	int **buffer;		  // pixel buffer for rendering
+	mlx_t		*mlx;		// miniLibX pointer
+	mlx_image_t	*img;		// *win and *img in one
+	t_map		*map;		// parsed map data
+	t_player	*player;	// player position/direction
+	t_textures	*textures;	// loaded texture data
+	int			**buffer;	// pixel buffer for rendering
 } t_game;
 
 // cleanup_game.c
