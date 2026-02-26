@@ -13,6 +13,14 @@ void	cleanup_textures(t_textures *textures)
 		free(textures->east_path);
 	if (textures->west_path)
 		free(textures->west_path);
+	if (textures->north_wall)
+		mlx_delete_texture(textures->north_wall);
+	if (textures->south_wall)
+		mlx_delete_texture(textures->south_wall);
+	if (textures->east_wall)
+		mlx_delete_texture(textures->east_wall);
+	if (textures->west_wall)
+		mlx_delete_texture(textures->west_wall);
 	if (textures->floor_color)
 		free(textures->floor_color);
 	if (textures->ceil_color)

@@ -20,7 +20,7 @@ int	parse_texture(char *line, char **texture_path, int i)
 	while (len >= 0 && ((*texture_path)[len] == ' ' 
 		|| ((*texture_path)[len] >= '\t' && (*texture_path)[len] <= '\r')))
 		(*texture_path)[len--] = '\0';
-	if (!correct_extension(*texture_path, ".xpm", 4))
+	if (!correct_extension(*texture_path, ".png", 4))
 		fd = -1;
 	else
 		fd = open(*texture_path, O_RDONLY);

@@ -13,8 +13,8 @@
 #include <sys/time.h>	// gettimeofday
 #include <stdbool.h>
 
-#include "libft.h"
 #include <MLX42/MLX42.h>
+#include "libft.h"
 
 #include "input.h"
 
@@ -41,18 +41,16 @@ typedef struct s_player
 
 typedef struct s_textures
 {
-	char *north_path;
-	char *south_path;
-	char *east_path;
-	char *west_path;
-	void *north_wall;
-	void *south_wall;
-	void *east_wall;
-	void *west_wall;
-	int *floor_color; // RGB array, one int for each color
-	int *ceil_color;
-	int width;
-	int height;
+	char			*north_path;
+	char			*south_path;
+	char			*east_path;
+	char			*west_path;
+	mlx_texture_t	*north_wall;
+	mlx_texture_t	*south_wall;
+	mlx_texture_t	*east_wall;
+	mlx_texture_t	*west_wall;
+	int				*floor_color; // RGB array, one int for each color
+	int				*ceil_color;
 } t_textures;
 
 typedef struct s_game
