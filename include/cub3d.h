@@ -67,6 +67,7 @@ typedef struct s_game
 void	cleanup_textures(t_textures *textures);
 void	cleanup_map(t_map *map);
 void	cleanup_game(t_game *game);
+void	close_game(void *param);
 
 // errors.c
 int	error_msg(char *str);

@@ -55,6 +55,17 @@ void	cleanup_game(t_game *game)
 		return ;
 	cleanup_textures(game->textures);
 	cleanup_map(game->map);
+	if (game->player)
+		free(game->player);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
+}
+
+void	close_game(void *param)
+{
+	t_game	*game;
+
+	game = (t_game *)param;
+	cleanup_game(game);
+	exit(0);
 }

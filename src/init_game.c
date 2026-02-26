@@ -54,7 +54,7 @@ int	init_player(t_game *game)
 	game->player->pos_y = game->map->player_y + 0.5;
 	if (!set_direction(game->player,
 		game->map->grid[game->map->player_y][game->map->player_x]))
-		return (error_msg("player direction has to be 'N', 'S', 'E' or 'W'"))
+		return (error_msg("player direction has to be 'N', 'S', 'E' or 'W'"));
 	return (1);
 }
 
