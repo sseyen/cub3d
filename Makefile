@@ -23,6 +23,7 @@ CFLAGS     = -Wall -Wextra -Werror -g $(INCLUDES) $(OS_DEF)
 SRCS       = main.c \
 			cleanup_game.c \
 			errors.c \
+			init_game.c \
 			init_structs.c \
 			parse_file.c \
 			parse_header.c \
