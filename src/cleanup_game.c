@@ -61,11 +61,3 @@ void	cleanup_game(t_game *game)
 		mlx_terminate(game->mlx);
 }
 
-void	close_game(void *param)
-{
-	t_game	*game;
-
-	game = (t_game *)param;
-	cleanup_game(game);
-	exit(0);
-}
