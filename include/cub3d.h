@@ -3,8 +3,12 @@
 #define CUB3D_H
 
 # define BUFFER_SIZE 10
+
 #define WIN_HEIGHT 720 // "random numbers", but dont want it to be too big
 #define WIN_WIDTH 1280 // 1280 * 720 * 4 bytes = ~3.5 MB of RAM, good CPU
+
+#define MOVE_SPEED 0.05
+#define ROT_SPEED  0.03
 
 #include <fcntl.h>		// open, close
 #include <unistd.h>		// read, write
@@ -73,6 +77,15 @@ void	close_game(void *param);
 
 // errors.c
 int	error_msg(char *str);
+
+// game_loop.c
+int	game_loop(t_game *game);
+
+// handle_movement.c
+void	move_forward_back(t_player *p, t_map *map, int forward);
+void	move_side(t_player *p, t_map *map, int right);
+void	rotate_player(t_player *p, int right);
+void	handle_movement(t_game *game);
 
 // init_game.c
 int	init_game(t_game *game);

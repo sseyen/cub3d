@@ -25,13 +25,14 @@ SRCS       = main.c \
 			close_game.c \
 			errors.c \
  			game_loop.c \
+			handle_movement.c \
 			init_game.c \
 			init_structs.c \
+ 			key_press.c \
 			parse_file.c \
 			parse_header.c \
 			parse_map.c \
 			utils.c \
-# 			key_press.c \
 
 OBJS       = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
