@@ -60,8 +60,8 @@ typedef struct s_game
 	mlx_t		*mlx;		// miniLibX pointer
 	mlx_image_t	*img;		// *win and *img in one
 	t_map		*map;		// parsed map data
-	t_player	*player;	// player position/direction
 	t_textures	*textures;	// loaded texture data
+	t_player	*player;	// player position/direction
 	int			**buffer;	// pixel buffer for rendering
 } t_game;
 

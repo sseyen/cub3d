@@ -8,16 +8,15 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (error_msg("Usage: ./cub3D <map.cub>"));
 	if (!init_structs(&game)) // allocate/zero map and textures
-		return (error_msg("Init failed"));
+		return (cleanup_game(&game), error_msg("Init failed"));
 	if (!parse_file(argv[1], &game)) // parsing + validation
-		return (error_msg("Invalid map file"));
+		return (cleanup_game(&game), error_msg("Invalid map file"));
+	if (!init_game(&game))
+		return (cleanup_game(&game), error_msg("Game init failed"));
 
-	// if (!init_game(&game))
-	// 	return (error_msg("Game init failed"));
-	// mlx_hook(game.win, KeyPress, KeyPressMask, &key_press, &game); // keyboard hadling
-	// mlx_hook(game.win, DestroyNotify, 0, &close_game, &game); // window closer
-	// mlx_loop_hook(game.mlx, &game_loop, &game); // set function adress
-	// mlx_loop(game.mlx); // run loop infinitely
+	mlx_loop_hook(game.mlx, &game_loop, &game);   // frame callback - same
+	mlx_close_hook(game.mlx, &close_game, &game); // window X button
+	mlx_key_hook(game.mlx, &key_press, &game);    // keyboard events
 	
 	cleanup_game(&game);
 	return (0);

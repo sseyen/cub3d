@@ -17,6 +17,7 @@ void	cleanup_textures(t_textures *textures)
 		free(textures->floor_color);
 	if (textures->ceil_color)
 		free(textures->ceil_color);
+	free(textures);
 }
 
 void	cleanup_map(t_map *map)
@@ -37,6 +38,7 @@ void	cleanup_map(t_map *map)
 	}
 	if (map->pending_line)
 		free(map->pending_line);
+	free(map);
 }
 
 void	cleanup_game(t_game *game)
