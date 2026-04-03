@@ -1,6 +1,22 @@
 
 #include "cub3d.h"
 
+static int	can_move_to(t_map *map, double x, double y)
+{
+	int	cell_x;
+	int	cell_y;
+
+	cell_x = (int)floor(x);
+	cell_y = (int)floor(y);
+	if (cell_y < 0 || cell_y >= map->height)
+		return (0);
+	if (cell_x < 0 || cell_x >= (int)ft_strlen(map->grid[cell_y]))
+		return (0);
+	if (map->grid[cell_y][cell_x] == ' ')
+		return (0);
+	return (1);
+}
+
 void	move_forward_back(t_player *p, t_map *map, int forward)
 {
 	double	new_x;
@@ -12,9 +28,9 @@ void	move_forward_back(t_player *p, t_map *map, int forward)
 		speed = -MOVE_SPEED;
 	new_x = p->pos_x + p->dir_x * speed;
 	new_y = p->pos_y + p->dir_y * speed;
-	if (map->grid[(int)p->pos_y][(int)new_x] != '1')
+	if (can_move_to(map, new_x, p->pos_y))
 		p->pos_x = new_x;
-	if (map->grid[(int)new_y][(int)p->pos_x] != '1')
+	if (can_move_to(map, p->pos_x, new_y))
 		p->pos_y = new_y;
 }
 
@@ -29,9 +45,9 @@ void	move_side(t_player *p, t_map *map, int right)
 		speed = -MOVE_SPEED;
 	new_x = p->pos_x + p->plane_x * speed;
 	new_y = p->pos_y + p->plane_y * speed;
-	if (map->grid[(int)p->pos_y][(int)new_x] != '1')
+	if (can_move_to(map, new_x, p->pos_y))
 		p->pos_x = new_x;
-	if (map->grid[(int)new_y][(int)p->pos_x] != '1')
+	if (can_move_to(map, p->pos_x, new_y))
 		p->pos_y = new_y;
 }
 
