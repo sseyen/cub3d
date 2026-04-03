@@ -54,10 +54,14 @@ void	cleanup_game(t_game *game)
 	if (!game)
 		return ;
 	cleanup_textures(game->textures);
+	game->textures = NULL;
 	cleanup_map(game->map);
+	game->map = NULL;
 	if (game->player)
 		free(game->player);
+	game->player = NULL;
 	if (game->mlx)
 		mlx_terminate(game->mlx);
+	game->mlx = NULL;
 }
 
