@@ -5,6 +5,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
+	ft_memset(&game, 0, sizeof(t_game));
 	if (argc != 2)
 		return (error_msg("Usage: ./cub3D <map.cub>"));
 	if (!init_structs(&game)) // allocate/zero map and textures
