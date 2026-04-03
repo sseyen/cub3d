@@ -1,12 +1,11 @@
 
 #include "cub3d.h"
 
-int	game_loop(t_game *game)
+void	game_loop(void *param)
 {
-	// This runs every frame automatically via mlx_loop_hook
-	handle_movement(game); // update player based on keys
-	raycasting_math(game); // calculate what to draw
-	render_frame(game); // draw to screen
-	mlx_put_image_to_window(game->mlx, game->win, ...);
-	return (0);
+	t_game	*game;
+
+	game = (t_game *)param;
+	handle_movement(game);
+	raycasting_math(game);
 }
