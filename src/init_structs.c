@@ -9,7 +9,7 @@ int	init_structs(t_game *game)
 	game->img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!game->img)
 		return (error_msg("mlx_new_image failed at initialization"));
-	if (!mlx_image_to_window(game->mlx, game->img, 0, 0))
+	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
 		return (error_msg("mlx_image_to_window failed at initialization"));
 	game->map = malloc(sizeof(t_map));
 	if (!game->map)
