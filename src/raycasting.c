@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	init_ray(t_ray *ray, t_player *p, int x)
+void	get_ray_direction(t_ray *ray, t_player *p, int x)
 {
 	double	camera_x;
 
@@ -13,7 +13,7 @@ void	init_ray(t_ray *ray, t_player *p, int x)
 	ray->side = 0;
 }
 
-void	init_dda(t_ray *ray, t_player *p)
+void	calc_step_distance(t_ray *ray, t_player *p)
 {
 	ray->delta_dist_x = fabs(1.0 / ray->ray_dir_x);
 	ray->delta_dist_y = fabs(1.0 / ray->ray_dir_y);
@@ -39,7 +39,7 @@ void	init_dda(t_ray *ray, t_player *p)
 	}
 }
 
-void	perform_dda(t_ray *ray, t_map *map)
+void	find_nearest_wall(t_ray *ray, t_map *map)
 {
 	while (ray->hit == 0)
 	{
@@ -89,9 +89,9 @@ void	raycasting_math(t_game *game)
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
-		init_ray(&ray, game->player, x);
-		init_dda(&ray, game->player);
-		perform_dda(&ray, game->map);
+		get_ray_direction(&ray, game->player, x);
+		calc_step_distance(&ray, game->player);
+		find_nearest_wall(&ray, game->map);
 		calc_wall_height(&ray);
 		draw_column(game, &ray, x);
 		x++;

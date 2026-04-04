@@ -28,7 +28,7 @@ void	draw_floor(t_game *game, t_ray *ray, int x)
 	}
 }
 
-int	get_tex_x(t_ray *ray, t_player *p)
+int	get_tex_offset(t_ray *ray, t_player *p)
 {
 	int	tex_x;
 
@@ -54,7 +54,7 @@ void	draw_wall(t_game *game, t_ray *ray, int x)
 	int				y;
 
 	tex = get_wall_texture(game, ray);
-	tex_x = get_tex_x(ray, game->player);
+	tex_x = get_tex_offset(ray, game->player);
 	step = (double)TILE_SIZE / ray->line_height;
 	tex_pos = (ray->draw_start - WIN_HEIGHT / 2.0
 			+ ray->line_height / 2.0) * step;
