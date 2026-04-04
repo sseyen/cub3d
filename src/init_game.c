@@ -58,22 +58,24 @@ int	set_direction(t_player *player, char spawn)
 
 int	init_player(t_game *game)
 {
+	char	spawn;
+
 	game->player = ft_calloc(1, sizeof(t_player));
 	if (!game->player)
 		return (error_msg("calloc failed for player loading"));
 	game->player->pos_x = game->map->player_x + 0.5;
 	game->player->pos_y = game->map->player_y + 0.5;
-	if (!set_direction(game->player,
-		game->map->grid[game->map->player_y][game->map->player_x]))
+	spawn = game->map->grid[game->map->player_y][game->map->player_x];
+	if (!set_direction(game->player, spawn))
 		return (error_msg("player direction has to be 'N', 'S', 'E' or 'W'"));
 	return (1);
 }
 
-int init_game(t_game *game)
+int	init_game(t_game *game)
 {
-	if (!init_textures(game))	// mlx_load_png each path → store in textures struct
+	if (!init_textures(game))
 		return (0);
-	if (!init_player(game))		// set pos/dir/plane from player_x/y + spawn char
+	if (!init_player(game))
 		return (0);
 	return (1);
 }

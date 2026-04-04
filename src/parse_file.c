@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
 
 int	only_map_chars(char *line)
@@ -35,7 +34,6 @@ int	only_map_chars(char *line)
 	return (has_content);
 }
 
-// basically ft_strncmp but from the back
 int	correct_extension(char *path, char *ext, int ext_len)
 {
 	int	i;
@@ -68,16 +66,16 @@ int	parse_header(int fd, t_game *game)
 		{
 			free(line);
 			line = mini_gnl(fd);
-			continue ; // for the het_nex_line not to skip to the end
+			continue ;
 		}
 		if (only_map_chars(line))
 		{
-			game->map->pending_line = line; // save for parse_map
+			game->map->pending_line = line;
 			return (validate_header(game));
 		}
-		if (!parse_header_line(line, game)) // save current data and move to next
+		if (!parse_header_line(line, game))
 		{
-			game->map->pending_line = line; // hand off to cleanup_game
+			game->map->pending_line = line;
 			return (0);
 		}
 		free(line);
@@ -103,7 +101,7 @@ int	parse_file(char *path, t_game *game)
 {
 	int		fd;
 
-	if (!correct_extension(path, ".cub", 4)) // .cub is always 4 chars
+	if (!correct_extension(path, ".cub", 4))
 		return (error_msg("Invalid map file type"));
 	fd = open(path, O_RDONLY);
 	if (fd < 0)

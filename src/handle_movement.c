@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
 
 static int	can_move_to(t_map *map, double x, double y)

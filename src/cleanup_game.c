@@ -6,10 +6,9 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 12:06:30 by alisseye          #+#    #+#             */
-/*   Updated: 2026/04/04 12:06:31 by alisseye         ###   ########.fr       */
+/*   Updated: 2026/04/04 12:17:36 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 
@@ -76,4 +75,3 @@ void	cleanup_game(t_game *game)
 		mlx_terminate(game->mlx);
 	game->mlx = NULL;
 }
-

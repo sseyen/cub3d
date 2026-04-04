@@ -6,15 +6,12 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 12:07:24 by alisseye          #+#    #+#             */
-/*   Updated: 2026/04/04 12:07:27 by alisseye         ###   ########.fr       */
+/*   Updated: 2026/04/04 12:19:27 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// the while loop after len removes any trailing whitespace chars such as \n
-// at the end just opening and closing fd to check if file exists
-// and yes, I am using fd as a flag, I dont want a helper fucntion
 int	parse_texture(char *line, char **texture_path, int i)
 {
 	int	fd;
@@ -28,7 +25,7 @@ int	parse_texture(char *line, char **texture_path, int i)
 	if (!*texture_path)
 		return (error_msg("ft_strdup failed for texture path"));
 	len = ft_strlen(*texture_path) - 1;
-	while (len >= 0 && ((*texture_path)[len] == ' ' 
+	while (len >= 0 && ((*texture_path)[len] == ' '
 		|| ((*texture_path)[len] >= '\t' && (*texture_path)[len] <= '\r')))
 		(*texture_path)[len--] = '\0';
 	if (!correct_extension(*texture_path, ".png", 4))
@@ -44,12 +41,11 @@ int	parse_texture(char *line, char **texture_path, int i)
 	return (close(fd), 1);
 }
 
-// initial/dup ',' > space > number > space > comma
 int	valid_color_input(char *line, int **color, int i, int j)
 {
-	while (line[i] && j <= 2
-		&& ((line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
-		|| ft_isdigit(line[i]) || line[i] == ','))
+	while (line[i] && j <= 2 && ((line[i] == ' '
+				|| (line[i] >= '\t' && line[i] <= '\r')
+				|| ft_isdigit(line[i]) || line[i] == ',')))
 	{
 		if (line[i] == ',')
 			return (0);
@@ -75,7 +71,7 @@ int	valid_color_input(char *line, int **color, int i, int j)
 
 int	parse_color(char *line, int **color, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (*color)
@@ -85,13 +81,13 @@ int	parse_color(char *line, int **color, int i)
 	*color = (int *)malloc(3 * sizeof(int));
 	if (!*color)
 		return (error_msg("malloc failed for color codes"));
-	if (!valid_color_input(line, color, i, j) 
-		|| ((*color)[0] < 0 || (*color)[0] > 255 || (*color)[1] < 0 
+	if (!valid_color_input(line, color, i, j)
+		|| ((*color)[0] < 0 || (*color)[0] > 255 || (*color)[1] < 0
 		|| (*color)[1] > 255 || (*color)[2] < 0 || (*color)[2] > 255))
 	{
 		free(*color);
 		*color = NULL;
-		return(error_msg("Invalid color format"));
+		return (error_msg("Invalid color format"));
 	}
 	return (1);
 }
@@ -113,8 +109,6 @@ int	validate_header(t_game *game)
 	return (1);
 }
 
-// !! ft_strncmp is "other way arround", it has 0/1 swapped for true/flase
-// that why we check !ft_strncmp()
 int	parse_header_line(char *line, t_game *game)
 {
 	if (!ft_strncmp(line, "NO ", 3))

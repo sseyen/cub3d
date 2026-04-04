@@ -50,7 +50,7 @@ int	collect_map_lines(int fd, t_game *game)
 			free(game->map->pending_line);
 			game->map->pending_line = NULL;
 			return (0);
-		}		
+		}
 		free(game->map->pending_line);
 		game->map->pending_line = mini_gnl(fd);
 	}
@@ -112,7 +112,7 @@ int	validate_map_closed(t_game *game)
 			c = game->map->grid[y][x];
 			if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 				if (is_open(game->map, y - 1, x) || is_open(game->map, y + 1, x)
-					|| is_open(game->map, y, x - 1) 
+					|| is_open(game->map, y, x - 1)
 					|| is_open(game->map, y, x + 1))
 					return (0);
 			x++;
