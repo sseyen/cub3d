@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlager <jlager@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 12:06:45 by alisseye          #+#    #+#             */
-/*   Updated: 2026/04/04 12:06:46 by alisseye         ###   ########.fr       */
+/*   Updated: 2026/04/06 15:29:38 by jlager           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	can_move_to(t_map *map, double x, double y)
 {
 	int	cell_x;
 	int	cell_y;
+	char	cell;
 
 	cell_x = (int)floor(x);
 	cell_y = (int)floor(y);
@@ -23,7 +24,11 @@ static int	can_move_to(t_map *map, double x, double y)
 		return (0);
 	if (cell_x < 0 || cell_x >= (int)ft_strlen(map->grid[cell_y]))
 		return (0);
-	if (map->grid[cell_y][cell_x] == ' ')
+	cell = map->grid[cell_y][cell_x];
+	if (cell == WALL || cell == SPACE)
+		return (0);
+	if (cell != FLOOR && cell != PLAYER_NORTH && cell != PLAYER_SOUTH
+		&& cell != PLAYER_EAST && cell != PLAYER_WEST)
 		return (0);
 	return (1);
 }
