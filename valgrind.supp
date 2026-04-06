@@ -1,0 +1,29 @@
+{
+   cub3d-glibc-dlopen-rpath
+   Memcheck:Addr8
+   obj:/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+}
+
+{
+   cub3d-glibc-dlopen-find-object
+   Memcheck:Leak
+   match-leak-kinds: definite
+   ...
+   fun:_dl_find_object_update
+   ...
+}
+
+{
+   cub3d-libllvm-startup-noise
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   obj:/usr/lib/x86_64-linux-gnu/libLLVM-15.so.1
+}
+
+{
+   cub3d-x11-glfw-startup-noise
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libglfw.so.3.3
+}
