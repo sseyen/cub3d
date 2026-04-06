@@ -50,18 +50,10 @@ int	get_tex_offset(t_ray *ray, t_player *p)
 		ray->wall_x = p->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
 	ray->wall_x -= floor(ray->wall_x);
 	tex_x = (int)(ray->wall_x * (double)TILE_SIZE);
-	if (ray->side == 0 && ray->ray_dir_x > 0)
-		tex_x = tex_x - 1;
-	if (ray->side == 1 && ray->ray_dir_y < 0)
-		tex_x = tex_x - 1;
 	if (ray->side == 0 && ray->ray_dir_x < 0)
 		tex_x = TILE_SIZE - tex_x - 1;
 	if (ray->side == 1 && ray->ray_dir_y > 0)
 		tex_x = TILE_SIZE - tex_x - 1;
-	if (tex_x < 0)
-		tex_x = 0;
-	if (tex_x >= TILE_SIZE)
-		tex_x = TILE_SIZE - 1;
 	return (tex_x);
 }
 
