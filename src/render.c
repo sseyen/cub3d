@@ -58,6 +58,10 @@ int	get_tex_offset(t_ray *ray, t_player *p)
 		tex_x = TILE_SIZE - tex_x - 1;
 	if (ray->side == 1 && ray->ray_dir_y > 0)
 		tex_x = TILE_SIZE - tex_x - 1;
+	if (tex_x < 0)
+		tex_x = 0;
+	if (tex_x >= TILE_SIZE)
+		tex_x = TILE_SIZE - 1;
 	return (tex_x);
 }
 
@@ -69,6 +73,10 @@ void	draw_wall(t_game *game, t_ray *ray, int x)
 	int				tex_x;
 	int				y;
 
+	step = 0;
+	tex_pos = 0;
+	tex_x = 0;
+	y = 0;
 	tex = get_wall_texture(game, ray);
 	tex_x = get_tex_offset(ray, game->player);
 	step = (double)TILE_SIZE / ray->line_height;

@@ -16,14 +16,6 @@ void	cleanup_textures(t_textures *textures)
 {
 	if (!textures)
 		return ;
-	if (textures->north_path)
-		free(textures->north_path);
-	if (textures->south_path)
-		free(textures->south_path);
-	if (textures->east_path)
-		free(textures->east_path);
-	if (textures->west_path)
-		free(textures->west_path);
 	if (textures->north_wall)
 		mlx_delete_texture(textures->north_wall);
 	if (textures->south_wall)
@@ -32,6 +24,14 @@ void	cleanup_textures(t_textures *textures)
 		mlx_delete_texture(textures->east_wall);
 	if (textures->west_wall)
 		mlx_delete_texture(textures->west_wall);
+	if (textures->north_path)
+		free(textures->north_path);
+	if (textures->south_path)
+		free(textures->south_path);
+	if (textures->east_path)
+		free(textures->east_path);
+	if (textures->west_path)
+		free(textures->west_path);
 	if (textures->floor_color)
 		free(textures->floor_color);
 	if (textures->ceil_color)
