@@ -14,8 +14,8 @@
 
 static int	can_move_to(t_map *map, double x, double y)
 {
-	int	cell_x;
-	int	cell_y;
+	int		cell_x;
+	int		cell_y;
 	char	cell;
 
 	cell_x = (int)floor(x);
